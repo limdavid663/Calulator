@@ -5,15 +5,14 @@ html{
 }
 
 body{
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
 }
 
 .keys{
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    width: 500px;
-    margin: auto;
+    background-color: #7FBCD2;
 }
 
 .keys > *{
@@ -21,4 +20,50 @@ body{
     padding: 30px;
     cursor: pointer;
     border-radius: 50%;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 350px;
+    height: 500px;
+    margin: 0 auto;
+}
+
+.container > *{
+    width: 100%;
+} 
+
+.display-container{
+    background-color: #E1FFEE;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.display{
+    font-size: 30px;
+}
+
+.keys{
+    display: flex;
+    justify-content: center;
+}
+
+.key:hover,
+.key-clear:hover,
+.key-equal:hover{
+    transform: scale(1.1);
+}
+
+/* For javascript */
+.key.scale{ 
+    transform: scale(1.1);
+}
+
+.keys{
+    padding: 10px 0;
 }

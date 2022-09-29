@@ -6,6 +6,7 @@ let displayStep = document.querySelector('.display-step');
 const clearButton = document.querySelector('.key-clear');
 display.innerHTML = '0';
 
+// Logic for basic Math
 function operate(num1, operator, num2){
     if(operator === '+'){
         return num1 + num2;
@@ -31,6 +32,7 @@ numberButtons.forEach(btn => {
             num1 = parseInt(num1);
             num2 = parseInt(num2);
             display.innerHTML = operate(num1, operator, num2);
+            displayStep.innerHTML = operate(num1, operator, num2) + btnValue;
             num1 = operate(num1, operator, num2);
             operator = btnValue;
             num2 = null;
@@ -52,6 +54,7 @@ equalButton.addEventListener('click', ()=>{
     num1 = parseInt(num1);
     num2 = parseInt(num2);
     display.innerHTML = operate(num1, operator, num2);
+    displayStep.innerHTML = operate(num1, operator, num2);
 })
 
 // This is the button for clear key
@@ -62,21 +65,6 @@ clearButton.addEventListener('click', () =>{
     num2 = null;
     operator = null;
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Check if string contain number return true (Function)
@@ -98,4 +86,41 @@ function checkIfDefined(variable){
     }
 }
 
+window.addEventListener('keydown', e => {
 
+    if(e.key === 'Delete'){
+        display.innerHTML = '0';
+        displayStep.innerHTML = null;
+        num1 = null;
+        num2 = null;
+        operator = null;
+    }
+
+    if(e.key === '=' || e.key === 'Enter'){
+        num1 = parseInt(num1);
+        num2 = parseInt(num2);
+        display.innerHTML = operate(num1, operator, num2);
+        displayStep.innerHTML = operate(num1, operator, num2);
+    }
+
+    if(onlyNumbers(e.key) || onlyOperator(e.key)){
+        displayStep.innerHTML += "" + e.key;
+        if(num1 !== null && operator !== null && num2 !== null && onlyOperator(e.key)){
+            num1 = parseInt(num1);
+            num2 = parseInt(num2);
+            display.innerHTML = operate(num1, operator, num2);
+            displayStep.innerHTML = operate(num1, operator, num2) + e.key;
+            num1 = operate(num1, operator, num2);
+            operator = e.key;
+            num2 = null;
+        }else if(e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/' || e.key === '%'){
+            operator = e.key;
+        }else if(num2 === null && operator === null){
+            num1 += e.key;
+            num1 = num1.replace(/null/g, '');
+        }else if(num1 !== null && operator !== null){
+            num2 += e.key;
+            num2 = num2.replace(/null/g, '');
+        }
+    }
+})
